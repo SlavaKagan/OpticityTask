@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwtUtil';
-import { User } from '../types/user';
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
@@ -10,16 +9,16 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         try {
             const user = verifyToken(token);
 
-            if (user && typeof user !== 'string') { // Ensure `user` is of type `User`
+            if (user && typeof user !== 'string') {
                 req.user = user;
                 next();
             } else {
-                res.sendStatus(403); // Invalid token
+                res.sendStatus(403);
             }
         } catch (err) {
-            res.sendStatus(403); // Invalid token
+            res.sendStatus(403);
         }
     } else {
-        res.sendStatus(401); // No token
+        res.sendStatus(401);
     }
 };
