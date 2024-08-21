@@ -1,12 +1,13 @@
 import express from 'express';
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
 import assignmentRoutes from './routes/assignmentRoutes';
+import { initializeDatabase } from './database/connection';
+
 
 const app = express();
 app.use(express.json());
 
-createConnection().then(() => {
+initializeDatabase().then(() => {
     console.log('Connected to MongoDB');
     app.use('/api', assignmentRoutes);
 });
