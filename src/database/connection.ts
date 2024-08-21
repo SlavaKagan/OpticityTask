@@ -8,7 +8,7 @@ export const initializeDatabase = async () => {
             url: 'mongodb://localhost:27017/OpticityTask',
             entities: [Assignment],
             synchronize: true,
-           
+            name: 'default',
             useNewUrlParser: true,
             useUnifiedTopology: true, 
        
