@@ -10,5 +10,5 @@
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist"
     },
-    "include": ["src/**/*", "src/types/**/*"]
+    "include": ["Backend/src/**/*", "Backend/src/types/**/*"]
 }
