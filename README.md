@@ -7,7 +7,7 @@
 
 
 ## General info about the task
-**GitHub repository (Forked):** https://github.com/SlavaKagan/OpticityTask <br />
+**GitHub repository:** https://github.com/SlavaKagan/OpticityTask <br />
 
 ## Backend
 **Programming Language:** (Typescript) 5.5 version https://www.typescriptlang.org/ <br />
