@@ -3,6 +3,9 @@
 ## Contact
 **Email:** slava.kagan.ht@gmail.com
 
+## How to use this service
+
+
 ## General info about the task
 **GitHub repository (Forked):** https://github.com/SlavaKagan/OpticityTask <br />
 
