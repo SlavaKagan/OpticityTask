@@ -16,8 +16,8 @@
 ## Database
 **Database:** (NoSQL)-MongoDB - https://cloud.mongodb.com/ <br />
 **Database Name:** OpticityTask <br />
-**MONGODB_URI:** MongoDB connection string saved in the .env file <br />
-**Database Collection:** tasks <br />
+**Database Collection:** assignment <br />
+**TypeORM:** TypeORM (Type Object–relational mapping) is an ORM that can run in NodeJS and can be used with TypeScript https://typeorm.io/.
 
 ## Frontend
 **Programming Language:** (Javascript) ES6 version https://www.javascript.com/ <br />
