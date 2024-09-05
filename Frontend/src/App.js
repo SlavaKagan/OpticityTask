@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import AssignmentList from './components/AssignmentList';
 import LoginForm from './components/LoginForm';
 import api from './services/api';
+import Cookies from 'js-cookie';
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
 
     const handleLogin = async (username, password) => {
         try {
             const response = await api.login(username, password);
             if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
+                Cookies.set('token', response.data.token, { expires: 2 }); // Token expires in 2 days
                 setIsAuthenticated(true);
             }
         } catch (error) {
@@ -19,7 +20,7 @@ function App() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token'); // Get token from cookies
         if (token) {
             setIsAuthenticated(true);
         }
