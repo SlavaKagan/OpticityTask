@@ -9,7 +9,9 @@ function App() {
 
     const handleLogin = async (username, password) => {
         try {
+            console.log('Attempting to login');
             const response = await api.login(username, password);
+            console.log('Login response:', response.data);
             if (response.data.token) {
                 Cookies.set('token', response.data.token, { expires: 2 }); // Token expires in 2 days
                 setIsAuthenticated(true);
