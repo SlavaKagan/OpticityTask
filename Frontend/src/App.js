@@ -5,7 +5,7 @@ import api from './services/api';
 import Cookies from 'js-cookie';
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleLogin = async (username, password) => {
         try {
