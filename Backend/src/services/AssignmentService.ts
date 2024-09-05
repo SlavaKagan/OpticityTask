@@ -1,19 +1,17 @@
-import { getMongoRepository, MongoRepository } from 'typeorm';
+import { MongoRepository, MongoEntityManager } from 'typeorm';
 import { Assignment } from '../models/assignmentModel';
+import { AppDataSource } from "../data-source";
+import { ObjectId } from "mongodb";
 
 export class AssignmentService {
-    private assignmentRepository: MongoRepository<Assignment>;
+    private assignmentRepository: any;
 
     constructor() {
-        // Get the repository from the default connection
-        this.assignmentRepository = getMongoRepository(Assignment);
+        this.assignmentRepository = AppDataSource.manager
     }
 
     async getAssignments(): Promise<Assignment[] | null> {
-        return await this.assignmentRepository.find({
-            order: { createdAt: 'DESC' },
-            take: 10,
-        });
+        return await this.assignmentRepository.find(Assignment)
     }
 
     async createAssignment(name: string, description: string): Promise<Assignment | null> {
@@ -22,12 +20,14 @@ export class AssignmentService {
     }
 
     async updateAssignment(id: string, name: string): Promise<Assignment | null> {
-        const assignment = await this.assignmentRepository.findOne({ where: { id } });
-        if (assignment) {
-            assignment.name = name;
-            return await this.assignmentRepository.save(assignment);
+        const assignment = await this.assignmentRepository.findOneBy(Assignment, {_id: new ObjectId(id)});
+   
+        if (!assignment) {
+            return null;
         }
-        throw new Error('Assignment not found');
+
+        assignment.name = name;
+        return await this.assignmentRepository.save(assignment);
     }
 
     async deleteDescription(id: string, descriptionIndex: number): Promise<Assignment | null> {

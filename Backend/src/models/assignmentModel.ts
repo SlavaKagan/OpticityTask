@@ -1,14 +1,14 @@
-import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
+import { Entity, ObjectId, ObjectIdColumn, Column } from 'typeorm';
 
 @Entity()
 export class Assignment {
     @ObjectIdColumn()
-    id: ObjectID = new ObjectID();
+    _id: ObjectId;
 
     @Column()
     name: string;
 
-    @Column('array')
+    @Column()
     descriptionHistory: string[];
 
     @Column()
