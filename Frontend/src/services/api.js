@@ -19,6 +19,8 @@ export default {
     login: (username, password) => api.post('/login', { username, password }),
     addAssignment: (name, description) => api.post('/assignments', { name, description }),
     getAssignments: (page) => api.get(`/assignments?page=${page}`),
-    addDescription: (assignmentId, description) => api.post(`/assignments/${assignmentId}`, { description }),
-    deleteDescription: (assignmentId, descriptionId) => api.delete(`/assignments/${assignmentId}/${descriptionId}`),
+    addDescription: (assignmentId, description) => api.post(`/assignments/${assignmentId}/descriptions`, { description }),
+    deleteDescription: (assignmentId, descriptionId) => api.delete(`/assignments/${assignmentId}/descriptions/${descriptionId}`),
+    getDescriptions: (assignmentId) => api.get(`/assignments/${assignmentId}/descriptions`),
+    updateAssignment: (assignmentId, name) => api.put(`/assignments/${assignmentId}`, { name }),
 };

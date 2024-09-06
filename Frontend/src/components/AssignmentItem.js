@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import DescriptionModal from './DescriptionModal';
 import './AssignmentItem.css'; // Import the CSS file for styles
 
-function AssignmentItem({ assignment }) {
+function AssignmentItem({ assignment, onAssignmentUpdated }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleEditClick = () => {
         setIsModalOpen(true);
+    };
+
+    const handleAssignmentUpdated = (updatedAssignment) => {
+        onAssignmentUpdated(updatedAssignment); // Notify parent about the update
+        setIsModalOpen(false); // Close the modal after update
     };
 
     return (
@@ -19,6 +24,7 @@ function AssignmentItem({ assignment }) {
                 <DescriptionModal
                     assignment={assignment}
                     onClose={() => setIsModalOpen(false)}
+                    onAssignmentUpdated={handleAssignmentUpdated}
                 />
             )}
         </div>

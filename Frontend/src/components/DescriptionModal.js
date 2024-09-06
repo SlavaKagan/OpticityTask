@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
+import './DescriptionModal.css'; // Import the CSS file for styles
 
-function DescriptionModal({ assignment, onClose }) {
+function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
     const [descriptions, setDescriptions] = useState([]);
     const [newDescription, setNewDescription] = useState('');
+    const [editMode, setEditMode] = useState(false);
+    const [updatedName, setUpdatedName] = useState(assignment.name);
 
     useEffect(() => {
         const fetchDescriptions = async () => {
@@ -39,25 +42,52 @@ function DescriptionModal({ assignment, onClose }) {
         }
     };
 
+    const handleUpdateAssignmentName = async () => {
+        try {
+            const response = await api.updateAssignment(assignment._id, updatedName);
+            if (response.data) {
+                onAssignmentUpdated(response.data); // Notify parent about the update
+                setEditMode(false); // Exit edit mode after successful update
+            }
+        } catch (error) {
+            console.error('Failed to update assignment name:', error);
+        }
+    };
+
     return (
         <div className="modal">
-            <button onClick={onClose}>X</button>
+            <button className="close-button" onClick={onClose}>X</button>
             <h2>Descriptions for {assignment.name}</h2>
+            {editMode ? (
+                <div className="edit-name">
+                    <input
+                        type="text"
+                        value={updatedName}
+                        onChange={(e) => setUpdatedName(e.target.value)}
+                    />
+                    <button onClick={handleUpdateAssignmentName}>Save</button>
+                    <button onClick={() => setEditMode(false)}>Cancel</button>
+                </div>
+            ) : (
+                <button className="edit-button" onClick={() => setEditMode(true)}>Edit Name</button>
+            )}
             <ul>
                 {descriptions.map(desc => (
                     <li key={desc._id}>
                         {desc.text}
-                        <button onClick={() => handleDeleteDescription(desc._id)}>🗑️</button>
+                        <button className="delete-button" onClick={() => handleDeleteDescription(desc._id)}>🗑️</button>
                     </li>
                 ))}
             </ul>
-            <input
-                type="text"
-                value={newDescription}
-                onChange={(e) => setNewDescription(e.target.value)}
-                placeholder="Add new description"
-            />
-            <button onClick={handleAddDescription}>+</button>
+            <div className="add-description">
+                <input
+                    type="text"
+                    value={newDescription}
+                    onChange={(e) => setNewDescription(e.target.value)}
+                    placeholder="Add new description"
+                />
+                <button onClick={handleAddDescription}>Add</button>
+            </div>
         </div>
     );
 }

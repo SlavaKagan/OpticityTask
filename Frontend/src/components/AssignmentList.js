@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AssignmentItem from './AssignmentItem';
 import api from '../services/api';
+import DescriptionModal from './DescriptionModal';
 
 function AssignmentList() {
     const [assignments, setAssignments] = useState([]);
@@ -8,6 +9,7 @@ function AssignmentList() {
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedAssignment, setSelectedAssignment] = useState(null);
 
     useEffect(() => {
         const fetchAssignments = async () => {
@@ -32,6 +34,13 @@ function AssignmentList() {
         fetchAssignments();
     }, [page]);
 
+    const handleAssignmentUpdated = (updatedAssignment) => {
+        setAssignments(assignments.map(assignment =>
+            assignment._id === updatedAssignment._id ? updatedAssignment : assignment
+        ));
+        setSelectedAssignment(null); // Close the modal after update
+    };
+
     if (loading) {
         return <p>Loading assignments...</p>;
     }
@@ -44,7 +53,12 @@ function AssignmentList() {
         <div>
             {assignments.length > 0 ? (
                 assignments.map((assignment) => (
-                    <AssignmentItem key={assignment._id} assignment={assignment} />
+                    <AssignmentItem
+                        key={assignment._id}
+                        assignment={assignment}
+                        onAssignmentUpdated={handleAssignmentUpdated}
+                        setSelectedAssignment={setSelectedAssignment}
+                    />
                 ))
             ) : (
                 <p>No assignments found.</p>
@@ -54,6 +68,14 @@ function AssignmentList() {
                 <button onClick={() => setPage(page + 1)} disabled={page >= totalPages}>Next</button>
             </div>
             <p>Page {page} of {totalPages}</p>
+
+            {selectedAssignment && (
+                <DescriptionModal
+                    assignment={selectedAssignment}
+                    onClose={() => setSelectedAssignment(null)}
+                    onAssignmentUpdated={handleAssignmentUpdated}
+                />
+            )}
         </div>
     );
 }

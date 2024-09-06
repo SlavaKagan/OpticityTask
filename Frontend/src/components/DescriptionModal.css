@@ -1,0 +1,65 @@
+/* DescriptionModal.css */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close-button {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.delete-button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+}
+
+.add-description {
+    display: flex;
+    margin-top: 10px;
+}
+
+.add-description input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.add-description button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
