@@ -8,9 +8,11 @@ export class AssignmentController {
         console.log('GET /assignments');
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 10;
+        console.log(`Page: ${page}, Limit: ${limit}`);
         try {
-            const assignments = await this.assignmentService.getAssignments(page,limit); 
-            res.json(assignments);
+            const assignments = await this.assignmentService.getAssignments(page, limit);
+            const totalCount = await this.assignmentService.getAssignmentsCount();
+            res.json({ assignments, totalCount });
         } catch (error) {
             return res.status(500).json({ message: 'An error occurred', error: error.message });
         }

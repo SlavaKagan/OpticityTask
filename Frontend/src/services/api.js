@@ -3,7 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api/',
+    baseURL: 'http://localhost:5000/',
     withCredentials: true,
 });
 
@@ -19,7 +19,6 @@ export default {
     login: (username, password) => api.post('/login', { username, password }),
     addAssignment: (name, description) => api.post('/assignments', { name, description }),
     getAssignments: (page) => api.get(`/assignments?page=${page}`),
-    getDescriptions: (assignmentId) => api.get(`/assignments/${assignmentId}/descriptions`),
-    addDescription: (assignmentId, text) => api.post(`/assignments/${assignmentId}/descriptions`, { text }),
-    deleteDescription: (assignmentId, descriptionId) => api.delete(`/assignments/${assignmentId}/descriptions/${descriptionId}`),
+    addDescription: (assignmentId, description) => api.post(`/assignments/${assignmentId}`, { description }),
+    deleteDescription: (assignmentId, descriptionId) => api.delete(`/assignments/${assignmentId}/${descriptionId}`),
 };

@@ -1,0 +1,30 @@
+/* AssignmentItem.css */
+.assignment-item {
+    margin-bottom: 10px;
+}
+
+.assignment-content {
+    display: flex;
+    align-items: center;
+}
+
+.assignment-content h3 {
+    margin: 0;
+    margin-right: 10px; /* Space between name and button */
+    line-height: 1.5; /* Adjust line-height if necessary */
+}
+
+.edit-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-flex; /* Ensure button displays correctly inline */
+    align-items: center; /* Aligns button content vertically */
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}

@@ -11,12 +11,21 @@ export class AssignmentService {
     }
 
     async getAssignments(page: number = 1, limit: number = 10): Promise<Assignment[]> {
+        if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+            throw new Error('Invalid page or limit');
+        }
         const skip = (page - 1) * limit;
-        return await this.assignmentRepository.find(Assignment,{
+        const assignments= await this.assignmentRepository.find(Assignment,{
             order: { createdAt: 'DESC' },
             skip,
             take: limit,
         });
+        console.log(`Assignments fetched: ${assignments.length}`);
+        return assignments;
+    }
+
+    async getAssignmentsCount(): Promise<number> {
+        return await this.assignmentRepository.count(Assignment);
     }
 
     async createAssignment(name: string, description: string): Promise<Assignment | null> {

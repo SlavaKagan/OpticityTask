@@ -9,14 +9,16 @@ function DescriptionModal({ assignment, onClose }) {
         const fetchDescriptions = async () => {
             try {
                 const response = await api.getDescriptions(assignment._id);
-                setDescriptions(response.data);
+                setDescriptions(response.data.descriptionHistory || []);
             } catch (error) {
                 console.error('Failed to fetch descriptions:', error);
             }
         };
 
-        fetchDescriptions();
-    }, [assignment._id]);
+        if (assignment && assignment._id) {
+            fetchDescriptions();
+        }
+    }, [assignment]);
 
     const handleAddDescription = async () => {
         try {
@@ -40,7 +42,7 @@ function DescriptionModal({ assignment, onClose }) {
     return (
         <div className="modal">
             <button onClick={onClose}>X</button>
-            <h2>Descriptions</h2>
+            <h2>Descriptions for {assignment.name}</h2>
             <ul>
                 {descriptions.map(desc => (
                     <li key={desc._id}>

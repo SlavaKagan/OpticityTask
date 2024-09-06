@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../services/api'; // Make sure this points to your API service
+import api from '../services/api';
 
 function AddAssignment({ onAssignmentAdded }) {
     const [name, setName] = useState('');

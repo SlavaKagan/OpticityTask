@@ -6,8 +6,7 @@ import api from './services/api';
 import Cookies from 'js-cookie';
 
 function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState();
-    const [assignments, setAssignments] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleLogin = async (username, password) => {
         try {
@@ -17,31 +16,16 @@ function App() {
                 expires.setHours(expires.getHours() + 2);
                 Cookies.set('token', response.data.token, { expires });
                 setIsAuthenticated(true);
-                fetchAssignments();
             }
         } catch (error) {
             console.error('Login failed:', error);
         }
     };
 
-    const fetchAssignments = async () => {
-        try {
-            const response = await api.getAssignments();
-            setAssignments(response.data);
-        } catch (error) {
-            console.error('Error fetching assignments:', error);
-        }
-    };
-
-    const handleAssignmentAdded = () => {
-        fetchAssignments();
-    };
-
     useEffect(() => {
         const token = Cookies.get('token');
         if (token) {
             setIsAuthenticated(true);
-            fetchAssignments();
         }
     }, []);
 
@@ -49,8 +33,8 @@ function App() {
         <div>
             {isAuthenticated ? (
                 <>
-                    <AddAssignment onAssignmentAdded={handleAssignmentAdded} />
-                    <AssignmentList assignments={assignments} />
+                    <AddAssignment onAssignmentAdded={() => window.location.reload()} />
+                    <AssignmentList />
                 </>
             ) : (
                 <LoginForm onLogin={handleLogin} />
