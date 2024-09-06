@@ -4,7 +4,15 @@
 **Email:** slava.kagan.ht@gmail.com
 
 ## How to use this service
+**Baceknd Side:**
+cd /Backend
+npm install
+npm run dev
 
+**Frontend Side:**
+cd /Frontend
+npm install
+npm start
 
 ## General info about the task
 **GitHub repository:** https://github.com/SlavaKagan/OpticityTask <br />
