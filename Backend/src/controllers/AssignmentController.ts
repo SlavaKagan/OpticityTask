@@ -33,17 +33,31 @@ export class AssignmentController {
     }
 
     async deleteDescription(req: Request, res: Response) {
-        console.log('DELETE /assignments/:id/descriptions/:descriptionIndex');
+        console.log('DELETE /assignments/:id/:descriptionIndex');
         const { id, descriptionIndex } = req.params;
-        await this.assignmentService.deleteDescription(id, parseInt(descriptionIndex, 10));
-        res.status(204).send();
+        try {
+            const deleteDescriptionAssignment= await this.assignmentService.deleteDescription(id, parseInt(descriptionIndex, 10));
+            if (!deleteDescriptionAssignment) {
+                return res.status(404).json({ message: 'Assignment not found' });
+            }
+            res.status(204).send();
+        } catch (error) {
+            return res.status(500).json({ message: 'An error occurred', error: error.message });
+        }
     }
 
     async addDescription(req: Request, res: Response) {
-        console.log('POST /assignments/:id/descriptions');
+        console.log('POST /assignments/:id');
         const { id } = req.params;
         const { description } = req.body;
-        const updatedAssignment = await this.assignmentService.addDescription(id, description);
-        res.json(updatedAssignment);
+        try {
+            const updatedAssignment = await this.assignmentService.addDescription(id, description);
+            if (!updatedAssignment) {
+                return res.status(404).json({ message: 'Assignment not found' });
+            }
+            return res.status(200).json(updatedAssignment);
+        } catch (error) {
+            return res.status(500).json({ message: 'An error occurred', error: error.message });
+        }
     }
 }

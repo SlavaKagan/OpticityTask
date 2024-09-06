@@ -31,20 +31,21 @@ export class AssignmentService {
     }
 
     async deleteDescription(id: string, descriptionIndex: number): Promise<Assignment | null> {
-        const assignment = await this.assignmentRepository.findOne({ where: { id } });
-        if (assignment) {
-            assignment.descriptionHistory.splice(descriptionIndex, 1);
-            return await this.assignmentRepository.save(assignment);
+        const assignment = await this.assignmentRepository.findOneBy(Assignment, {_id: new ObjectId(id)});
+        if (!assignment) {
+            return null;
         }
-        throw new Error('Assignment not found');
+        assignment.descriptionHistory.splice(descriptionIndex, 1);
+        return await this.assignmentRepository.save(assignment);
     }
 
     async addDescription(id: string, description: string) : Promise<Assignment | null> {
-        const assignment = await this.assignmentRepository.findOne({ where: { id } });
-        if (assignment) {
-            assignment.descriptionHistory.push(description);
-            return await this.assignmentRepository.save(assignment);
+        const assignment = await this.assignmentRepository.findOneBy(Assignment, {_id: new ObjectId(id)});
+        
+        if (!assignment) {
+            return null;
         }
-        throw new Error('Assignment not found');
+        assignment.descriptionHistory.push(description);
+        return await this.assignmentRepository.save(assignment);
     }
 }

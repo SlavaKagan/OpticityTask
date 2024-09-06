@@ -8,7 +8,7 @@ export class Assignment {
     @Column()
     name: string;
 
-    @Column()
+    @Column('array')
     descriptionHistory: string[];
 
     @Column()
