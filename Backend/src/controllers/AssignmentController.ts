@@ -6,8 +6,14 @@ export class AssignmentController {
 
     async getAssignments(req: Request, res: Response) {
         console.log('GET /assignments');
-        const assignments = await this.assignmentService.getAssignments(); 
-        res.json(assignments);
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        try {
+            const assignments = await this.assignmentService.getAssignments(page,limit); 
+            res.json(assignments);
+        } catch (error) {
+            return res.status(500).json({ message: 'An error occurred', error: error.message });
+        }
     }
 
     async createAssignment(req: Request, res: Response) {
@@ -33,7 +39,7 @@ export class AssignmentController {
     }
 
     async deleteDescription(req: Request, res: Response) {
-        console.log('DELETE /assignments/:id/:descriptionIndex');
+        console.log('DELETE /assignments/:id/:descriptionName');
         const { id, descriptionIndex } = req.params;
         try {
             const deleteDescriptionAssignment= await this.assignmentService.deleteDescription(id, parseInt(descriptionIndex, 10));

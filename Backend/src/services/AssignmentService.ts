@@ -10,8 +10,13 @@ export class AssignmentService {
         this.assignmentRepository = AppDataSource.manager
     }
 
-    async getAssignments(): Promise<Assignment[] | null> {
-        return await this.assignmentRepository.find(Assignment)
+    async getAssignments(page: number = 1, limit: number = 10): Promise<Assignment[]> {
+        const skip = (page - 1) * limit;
+        return await this.assignmentRepository.find(Assignment,{
+            order: { createdAt: 'DESC' },
+            skip,
+            take: limit,
+        });
     }
 
     async createAssignment(name: string, description: string): Promise<Assignment | null> {
