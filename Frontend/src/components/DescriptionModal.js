@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
-import './DescriptionModal.css'; // Import the CSS file for styles
+import './DescriptionModal.css';
 
 function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
     const [descriptions, setDescriptions] = useState([]);
@@ -57,8 +57,8 @@ function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
         try {
             const response = await api.updateAssignment(assignment._id, updatedName);
             if (response.data) {
-                onAssignmentUpdated(response.data); // Notify parent about the update
-                setEditMode(false); // Exit edit mode after successful update
+                onAssignmentUpdated(response.data);
+                setEditMode(false); 
             }
         } catch (error) {
             console.error('Failed to update assignment name:', error);

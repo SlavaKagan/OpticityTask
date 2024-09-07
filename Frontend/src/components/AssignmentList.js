@@ -38,7 +38,7 @@ function AssignmentList() {
         setAssignments(assignments.map(assignment =>
             assignment._id === updatedAssignment._id ? updatedAssignment : assignment
         ));
-        setSelectedAssignment(null); // Close the modal after update
+        setSelectedAssignment(null);
     };
 
     if (loading) {

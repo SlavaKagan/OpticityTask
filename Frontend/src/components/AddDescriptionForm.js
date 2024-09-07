@@ -10,7 +10,7 @@ function AddDescriptionForm({ assignmentId, onDescriptionAdded }) {
         try {
             const response = await api.addDescription(assignmentId, description);
             if (response.data) {
-                onDescriptionAdded(); // Notify parent to refresh descriptions
+                onDescriptionAdded();
                 setDescription('');
             }
         } catch (error) {

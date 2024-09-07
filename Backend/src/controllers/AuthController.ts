@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { generateToken } from '../utils/jwtUtils';
 
-// Permanent credentials
 const USERNAME = 'lstech';
 const PASSWORD = 'LStech123';
 

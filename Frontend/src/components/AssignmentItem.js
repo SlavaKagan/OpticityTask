@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DescriptionModal from './DescriptionModal';
-import './AssignmentItem.css'; // Import the CSS file for styles
+import './AssignmentItem.css';
 
 function AssignmentItem({ assignment, onAssignmentUpdated }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,8 +10,8 @@ function AssignmentItem({ assignment, onAssignmentUpdated }) {
     };
 
     const handleAssignmentUpdated = (updatedAssignment) => {
-        onAssignmentUpdated(updatedAssignment); // Notify parent about the update
-        setIsModalOpen(false); // Close the modal after update
+        onAssignmentUpdated(updatedAssignment);
+        setIsModalOpen(false);
     };
 
     return (
