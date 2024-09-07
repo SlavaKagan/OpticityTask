@@ -13,5 +13,7 @@ router.post('/assignments', authenticateToken, (req, res) => assignmentControlle
 router.put('/assignments/:id', authenticateToken, (req, res) => assignmentController.updateAssignment(req, res));
 router.delete('/assignments/:id/:descriptionIndex', authenticateToken, (req, res) => assignmentController.deleteDescription(req, res));
 router.post('/assignments/:id', authenticateToken, (req, res) => assignmentController.addDescription(req, res));
+router.get('/assignments/:id', authenticateToken, (req, res) => assignmentController.getAssignmentById(req, res));
+
 
 export default router;

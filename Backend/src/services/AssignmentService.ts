@@ -49,8 +49,11 @@ export class AssignmentService {
         if (!assignment) {
             return null;
         }
-        assignment.descriptionHistory.splice(descriptionIndex, 1);
-        return await this.assignmentRepository.save(assignment);
+        if (descriptionIndex >= 0 && descriptionIndex < assignment.descriptionHistory.length) {
+            assignment.descriptionHistory.splice(descriptionIndex, 1);
+            return await this.assignmentRepository.save(assignment);
+        }
+        return null;
     }
 
     async addDescription(id: string, description: string) : Promise<Assignment | null> {
@@ -61,5 +64,10 @@ export class AssignmentService {
         }
         assignment.descriptionHistory.push(description);
         return await this.assignmentRepository.save(assignment);
+    }
+
+    async getAssignmentById(id: string): Promise<Assignment | null> {
+        const assignment = await this.assignmentRepository.findOneBy(Assignment, { _id: new ObjectId(id) });
+        return assignment;
     }
 }

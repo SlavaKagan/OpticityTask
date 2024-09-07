@@ -23,20 +23,31 @@ function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
         }
     }, [assignment]);
 
+    const fetchDescriptions = async () => {
+        if (assignment && assignment._id) {
+            try {
+                const response = await api.getDescriptions(assignment._id);
+                setDescriptions(response.data.descriptionHistory || []);
+            } catch (error) {
+                console.error('Failed to fetch descriptions:', error);
+            }
+        }
+    };
+
     const handleAddDescription = async () => {
         try {
             const response = await api.addDescription(assignment._id, newDescription);
-            setDescriptions([...descriptions, response.data]);
+            setDescriptions([...descriptions, response.data.description]);
             setNewDescription('');
         } catch (error) {
             console.error('Failed to add description:', error);
         }
     };
 
-    const handleDeleteDescription = async (descriptionId) => {
+    const handleDeleteDescription = async (index) => {
         try {
-            await api.deleteDescription(assignment._id, descriptionId);
-            setDescriptions(descriptions.filter(desc => desc._id !== descriptionId));
+            await api.deleteDescription(assignment._id, index);
+            setDescriptions(descriptions.filter((_, i) => i !== index));
         } catch (error) {
             console.error('Failed to delete description:', error);
         }
@@ -72,10 +83,10 @@ function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
                 <button className="edit-button" onClick={() => setEditMode(true)}>Edit Name</button>
             )}
             <ul>
-                {descriptions.map(desc => (
-                    <li key={desc._id}>
-                        {desc.text}
-                        <button className="delete-button" onClick={() => handleDeleteDescription(desc._id)}>🗑️</button>
+                {descriptions.map((desc, index) => (
+                    <li key={index}>
+                        {desc}
+                        <button className="delete-button" onClick={() => handleDeleteDescription(index)}>🗑️</button>
                     </li>
                 ))}
             </ul>
@@ -88,6 +99,8 @@ function DescriptionModal({ assignment, onClose, onAssignmentUpdated }) {
                 />
                 <button onClick={handleAddDescription}>Add</button>
             </div>
+             {/* Refresh button */}
+             <button onClick={fetchDescriptions}>Refresh Descriptions</button>
         </div>
     );
 }
