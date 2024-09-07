@@ -4,15 +4,19 @@
 **Email:** slava.kagan.ht@gmail.com
 
 ## How to use this service
+
+Clone the repository to your local repository folder: https://github.com/SlavaKagan/OpticityTask <br />
+Open the repository with Terminal or other IDE. <br />
+
 **Baceknd Side:**
-cd /Backend
-npm install
-npm run dev
+1. cd /Backend <br />
+2. npm install <br />
+3. npm run dev <br />
 
 **Frontend Side:**
-cd /Frontend
-npm install
-npm start
+1. cd /Frontend <br />
+2. npm install <br />
+3. npm start <br />
 
 ## General info about the task
 **GitHub repository:** https://github.com/SlavaKagan/OpticityTask <br />
